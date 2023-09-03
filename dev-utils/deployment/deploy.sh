@@ -57,7 +57,7 @@ if [ $? -eq 0 ]
 then 
 	touch ${DEPLOY_FOLDER}/egov-ear.ear.dodeploy
 	echo "Starting wildfly ...."
-	nohup ${WILDFLY_HOME}/bin/standalone.sh -b 0.0.0.0 &>/dev/null &
+	nohup ${WILDFLY_HOME}/bin/standalone.sh -b 0.0.0.0 --serer-config=grams.xml  -Djboss.socket.binding.port-offset=301 &>/dev/null &
 	sleep 2;
 	echo "WILDFLY Started, and you can see the logs @ ${WILDFLY_HOME}/standalone/log/server.log"
 else
