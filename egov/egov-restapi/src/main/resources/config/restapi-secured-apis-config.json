@@ -1,0 +1,36 @@
+{
+	"resources": [
+		{
+			"url": "/v1.0/property/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/watercharges/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/egf/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/license/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/application/search/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/marriageregistration/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/council/**",
+			"roles": "hasAnyRole('third party operator')"
+		},
+		{
+			"url": "/v1.0/complaint/**",
+			"roles": "hasAnyRole('third party operator')"
+		}
+	]
+}

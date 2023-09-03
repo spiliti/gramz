@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~    eGov  SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
+  ~    accountability and the service delivery of the government  organizations.
+  ~
+  ~     Copyright (C) 2017  eGovernments Foundation
+  ~
+  ~     The updated version of eGov suite of products as by eGovernments Foundation
+  ~     is available at http://www.egovernments.org
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program. If not, see http://www.gnu.org/licenses/ or
+  ~     http://www.gnu.org/licenses/gpl.html .
+  ~
+  ~     In addition to the terms of the GPL license to be adhered to in using this
+  ~     program, the following additional terms are to be complied with:
+  ~
+  ~         1) All versions of this program, verbatim or modified must carry this
+  ~            Legal Notice.
+  ~            Further, all user interfaces, including but not limited to citizen facing interfaces,
+  ~            Urban Local Bodies interfaces, dashboards, mobile applications, of the program and any
+  ~            derived works should carry eGovernments Foundation logo on the top right corner.
+  ~
+  ~            For the logo, please refer http://egovernments.org/html/logo/egov_logo.png.
+  ~            For any further queries on attribution, including queries on brand guidelines,
+  ~            please contact contact@egovernments.org
+  ~
+  ~         2) Any misrepresentation of the origin of the material is prohibited. It
+  ~            is required that all modified versions of this material be marked in
+  ~            reasonable ways as different from the original version.
+  ~
+  ~         3) This license does not grant any rights to any user of the program
+  ~            with regards to rights under trademark law for use of the trade names
+  ~            or trademarks of eGovernments Foundation.
+  ~
+  ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+  ~
+  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="remittance_statement_report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="0" rightMargin="10" topMargin="0" bottomMargin="0" uuid="66091296-e2fe-4748-baa1-34b0b8cbb97b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="ireport.zoom" value="1.9487171000000016"/>
+	<property name="ireport.x" value="313"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.lang.*"/>
+	<import value="org.egov.infra.reporting.util.*"/>
+	<import value="java.util.*"/>
+	<import value="java.math.*"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="quantity" class="java.lang.Double"/>
+	<field name="unitRate" class="java.lang.Double"/>
+	<field name="itemDescription" class="java.lang.String"/>
+	<field name="unitOfMeasurement" class="java.lang.String"/>
+	<variable name="serialnumber" class="java.lang.Integer" resetType="Group" resetGroup="sewerageestimationgroup" calculation="Count">
+		<initialValueExpression><![CDATA[new java.lang.Integer(1)]]></initialValueExpression>
+	</variable>
+	<variable name="total" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{unitRate}*$F{quantity}]]></variableExpression>
+	</variable>
+	<variable name="totalAmount" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{total}]]></variableExpression>
+	</variable>
+	<group name="sewerageestimationgroup">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="335" y="0" width="93" height="21" uuid="a10c2d93-a7b9-4d17-a18c-a226a0b82f82">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitOfMeasurement}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="428" y="0" width="53" height="21" uuid="dfdc59f6-16ee-40ae-934d-f27474470f31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitRate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="481" y="0" width="57" height="21" uuid="9efcb937-6e6e-4c1d-b280-e269d4928b48">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="258" y="0" width="77" height="21" uuid="c53239b1-f972-4e90-af85-8cc8caf0da96">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="31" y="0" width="227" height="21" uuid="de813d0b-2bb9-4f0e-addf-4fc76b01237e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemDescription}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1" y="0" width="30" height="21" uuid="cbe7527f-c2f5-4f80-bf85-8d7cf5a2104f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
