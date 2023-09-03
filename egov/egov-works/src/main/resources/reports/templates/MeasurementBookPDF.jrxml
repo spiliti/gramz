@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ eGov suite of products aim to improve the internal efficiency,transparency,
+  ~    accountability and the service delivery of the government  organizations.
+  ~
+  ~     Copyright (C) <2015>  eGovernments Foundation
+  ~
+  ~     The updated version of eGov suite of products as by eGovernments Foundation
+  ~     is available at http://www.egovernments.org
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program. If not, see http://www.gnu.org/licenses/ or
+  ~     http://www.gnu.org/licenses/gpl.html .
+  ~
+  ~     In addition to the terms of the GPL license to be adhered to in using this
+  ~     program, the following additional terms are to be complied with:
+  ~
+  ~         1) All versions of this program, verbatim or modified must carry this
+  ~            Legal Notice.
+  ~
+  ~         2) Any misrepresentation of the origin of the material is prohibited. It
+  ~            is required that all modified versions of this material be marked in
+  ~            reasonable ways as different from the original version.
+  ~
+  ~         3) This license does not grant any rights to any user of the program
+  ~            with regards to rights under trademark law for use of the trade names
+  ~            or trademarks of eGovernments Foundation.
+  ~
+  ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+  -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-06T13:23:41 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MeasurementBookPDF" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="9b7d841e-c314-47e9-8795-c4395d9ecdf3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<import value="org.egov.infra.reporting.util.*"/>
+	<import value="org.egov.infra.utils.*"/>
+	<parameter name="workflowdetails" class="java.util.List"/>
+	<parameter name="mBHeader" class="org.egov.works.mb.entity.MBHeader"/>
+	<parameter name="tenderFinalizedPerc" class="java.lang.String"/>
+	<parameter name="currDate" class="java.lang.String"/>
+	<parameter name="tenderItems" class="java.util.List"/>
+	<parameter name="measurementDetails" class="java.util.List"/>
+	<parameter name="measurementSize" class="java.lang.Integer"/>
+	<parameter name="cityName" class="java.lang.String"/>
+	<parameter name="cityLogo" class="java.lang.String"/>
+	<field name="fromPageNo" class="java.lang.Integer"/>
+	<field name="toPageNo" class="java.lang.Integer"/>
+	<field name="mbDate" class="java.util.Date"/>
+	<field name="mbRefNo" class="java.lang.String"/>
+	<field name="createdBy" class="org.egov.infra.admin.master.entity.User"/>
+	<field name="mbAmount" class="java.math.BigDecimal"/>
+	<field name="workOrderEstimate" class="org.egov.works.workorder.entity.WorkOrderEstimate"/>
+	<group name="Group1">
+		<groupHeader>
+			<band height="30">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="41" y="0" width="340" height="30" uuid="5189520b-3c19-4b21-80bc-d1d3b073aed0"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> Abstract/Detailed Estimate Number : </style>"+$F{workOrderEstimate}.getEstimate().getEstimateNumber()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="381" y="0" width="372" height="30" uuid="de596e1c-2603-41b1-a516-283154970b55"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> Work Identification Number : </style>"+$F{workOrderEstimate}.getEstimate().getProjectCode().getCode()]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="30">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="41" y="0" width="712" height="30" uuid="a8764b61-f51d-42c8-a62c-da8ca91f526d"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\">Name of the work : </style>"+$F{workOrderEstimate}.getEstimate().getName()]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="30">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="41" y="0" width="340" height="30" uuid="5c68fc1c-b7d0-47fa-aebb-fdbe27dbdac0"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> LOA Number : </style>"+$F{workOrderEstimate}.getWorkOrder().getWorkOrderNumber()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="381" y="0" width="372" height="30" uuid="0b05f4ec-a997-4b31-8800-b78e7ff71542"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\">Agency /Firm Name  : </style>"+$F{workOrderEstimate}.getWorkOrder().getContractor().getName() + " "+"-"+" " + $F{workOrderEstimate}.getWorkOrder().getContractor().getCode()]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="30">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="444" y="0" width="130" height="30" uuid="135481a2-6aca-41ad-a299-2f27f3ffe13c"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> MB Date : </style>"+DateUtils.getDefaultFormattedDate($F{mbDate})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="574" y="0" width="179" height="30" uuid="4aab807b-6885-482c-9904-4ced9a1857aa"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> Created By : </style>"+$F{createdBy}.getName()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="41" y="0" width="240" height="30" uuid="e157d790-8928-47b1-96b9-65bea9dc5dd4"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> MB Reference number : </style>"+$F{mbRefNo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="281" y="0" width="163" height="30" uuid="7f7a0e25-0350-4551-b171-42b228db3e17">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="2" bottomPadding="1">
+						<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled"/>
+					<textFieldExpression><![CDATA["<style forecolor=\"#000000\" isBold=\"true\" pdfEncoding=\"Cp1252\" isPdfEmbedded=\"true\"> Page Number : </style>"+$F{fromPageNo}.toString() + " to " + $F{toPageNo}.toString()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="92" y="35" width="618" height="30" uuid="25da2f5d-4b2d-4fe2-8930-fece648fbb70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Measurement Book Statement]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="160" y="0" width="490" height="30" uuid="976dd9da-c622-4220-8bbd-43a0218dc92a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cityName}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="38" y="3" width="54" height="53" uuid="84d81363-735d-46d9-85e0-8953e5af4feb"/>
+				<imageExpression><![CDATA[$P{cityLogo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="3" y="11" width="729" height="28" uuid="f5b954fb-9328-457f-844b-c00939f6940c"/>
+				<subreportParameter name="tenderFinalizedPerc">
+					<subreportParameterExpression><![CDATA[$P{tenderFinalizedPerc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mBHeader">
+					<subreportParameterExpression><![CDATA[$P{mBHeader}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{tenderItems}, false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("measurementBook_tenderitems.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="19">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="9" y="0" width="730" height="19" uuid="c02c51aa-06c0-4efd-8b45-e6487a0240f4">
+					<printWhenExpression><![CDATA[$P{workflowdetails}.size() != 0]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{workflowdetails}, false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("MeasurementBook_Workflowdetails.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="571" y="1" width="219" height="18" uuid="7b9b7a4a-383d-4463-b75d-e3aba59409cf"/>
+				<box bottomPadding="1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Report Run Date: " + $P{currDate} + " "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="1" width="70" height="18" uuid="f38de6fc-e7a3-457d-8b51-76abdc85cbce"/>
+				<box bottomPadding="1" rightPadding="1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20">
+			<printWhenExpression><![CDATA[$P{measurementSize} != 0]]></printWhenExpression>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="1" y="1" width="689" height="19" uuid="76cbe2ce-76ed-4982-8d25-58fde6c4a8ec">
+					<printWhenExpression><![CDATA[$P{measurementSize} != 0]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{measurementDetails}, false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("MB_measurementSheet.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,168 @@
+/*
+ * eGov suite of products aim to improve the internal efficiency,transparency,
+ *    accountability and the service delivery of the government  organizations.
+ *
+ *     Copyright (C) <2015>  eGovernments Foundation
+ *
+ *     The updated version of eGov suite of products as by eGovernments Foundation
+ *     is available at http://www.egovernments.org
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program. If not, see http://www.gnu.org/licenses/ or
+ *     http://www.gnu.org/licenses/gpl.html .
+ *
+ *     In addition to the terms of the GPL license to be adhered to in using this
+ *     program, the following additional terms are to be complied with:
+ *
+ *         1) All versions of this program, verbatim or modified must carry this
+ *            Legal Notice.
+ *
+ *         2) Any misrepresentation of the origin of the material is prohibited. It
+ *            is required that all modified versions of this material be marked in
+ *            reasonable ways as different from the original version.
+ *
+ *         3) This license does not grant any rights to any user of the program
+ *            with regards to rights under trademark law for use of the trade names
+ *            or trademarks of eGovernments Foundation.
+ *
+ *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+ */
+package org.egov.works.web.controller.lineestimate;
+
+import java.util.List;
+
+import org.egov.commons.dao.EgwStatusHibernateDAO;
+import org.egov.commons.dao.FunctionHibernateDAO;
+import org.egov.commons.dao.FundHibernateDAO;
+import org.egov.dao.budget.BudgetGroupDAO;
+import org.egov.infra.admin.master.entity.Department;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.DepartmentService;
+import org.egov.infra.exception.ApplicationException;
+import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.services.masters.SchemeService;
+import org.egov.works.abstractestimate.entity.EstimatePhotographSearchRequest;
+import org.egov.works.config.properties.WorksApplicationProperties;
+import org.egov.works.lineestimate.entity.LineEstimateSearchRequest;
+import org.egov.works.lineestimate.entity.LineEstimatesForAbstractEstimate;
+import org.egov.works.lineestimate.service.LineEstimateService;
+import org.egov.works.masters.service.NatureOfWorkService;
+import org.egov.works.utils.WorksConstants;
+import org.egov.works.utils.WorksUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+@RequestMapping(value = "/lineestimate")
+public class SearchLineEstimateController {
+
+    @Autowired
+    private LineEstimateService lineEstimateService;
+
+    @Autowired
+    private FundHibernateDAO fundHibernateDAO;
+
+    @Autowired
+    private FunctionHibernateDAO functionHibernateDAO;
+
+    @Autowired
+    private BudgetGroupDAO budgetGroupDAO;
+
+    @Autowired
+    private SchemeService schemeService;
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private SecurityUtils securityUtils;
+
+    @Autowired
+    private EgwStatusHibernateDAO egwStatusDAO;
+
+    @Autowired
+    private NatureOfWorkService natureOfWorkService;
+
+    @Autowired
+    private WorksApplicationProperties worksApplicationProperties;
+
+    @Autowired
+    private WorksUtils worksUtils;
+
+    @RequestMapping(value = "/searchform", method = RequestMethod.GET)
+    public String showSearchLineEstimateForLoa(@ModelAttribute final LineEstimateSearchRequest lineEstimateSearchRequest,
+            final Model model) throws ApplicationException {
+        setDropDownValues(model);
+        model.addAttribute("lineEstimateSearchRequest", lineEstimateSearchRequest);
+        return "lineestimate-search";
+    }
+
+    @RequestMapping(value = "/searchlineestimateforabstractestimate-form", method = RequestMethod.GET)
+    public String searchLineEstimateForAbstractEstimate(
+            @ModelAttribute final LineEstimatesForAbstractEstimate lineEstimatesForAbstractEstimate,
+            final Model model) {
+        if (!worksApplicationProperties.lineEstimateRequired())
+            return "redirect:/abstractestimate/create";
+        setDropDownValues(model);
+        final List<User> lineEstimateCreatedByUsers = lineEstimateService.getLineEstimateCreatedByUsers();
+        final List<Department> departments = worksUtils.getUserDepartments(securityUtils.getCurrentUser());
+        lineEstimatesForAbstractEstimate.setSpillOverFlag(false);
+        model.addAttribute("lineEstimatesForAbstractEstimate", lineEstimatesForAbstractEstimate);
+        model.addAttribute("lineEstimateCreatedByUsers", lineEstimateCreatedByUsers);
+        model.addAttribute("departments", departments);
+        return "searchLineEstimateForAbstractEstimate-search";
+    }
+
+    @RequestMapping(value = "/searchleforspilloverae-form", method = RequestMethod.GET)
+    public String searchLineEstimateForSpillOverAbstractEstimate(
+            @ModelAttribute final LineEstimatesForAbstractEstimate lineEstimatesForAbstractEstimate,
+            final Model model) {
+        if (!worksApplicationProperties.lineEstimateRequired())
+            return "redirect:/abstractestimate/createspillover";
+        setDropDownValues(model);
+        final List<User> lineEstimateCreatedByUsers = lineEstimateService.getLineEstimateCreatedByUsers();
+        final List<Department> departments = worksUtils.getUserDepartments(securityUtils.getCurrentUser());
+        lineEstimatesForAbstractEstimate.setSpillOverFlag(true);
+        model.addAttribute("lineEstimatesForAbstractEstimate", lineEstimatesForAbstractEstimate);
+        model.addAttribute("lineEstimateCreatedByUsers", lineEstimateCreatedByUsers);
+        model.addAttribute("departments", departments);
+        return "searchLineEstimateForSpilloverEstimate-search";
+    }
+
+    private void setDropDownValues(final Model model) {
+        model.addAttribute("funds", fundHibernateDAO.findAllActiveFunds());
+        model.addAttribute("functions", functionHibernateDAO.getAllActiveFunctionsOrderByCode());
+        model.addAttribute("budgetHeads", budgetGroupDAO.getBudgetGroupList());
+        model.addAttribute("schemes", schemeService.findAll());
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        model.addAttribute("egwStatus", egwStatusDAO.getStatusByModule(WorksConstants.MODULETYPE));
+        model.addAttribute("natureOfWork", natureOfWorkService.findAll());
+    }
+
+    @RequestMapping(value = "/searchlineestimateform", method = RequestMethod.GET)
+    public String searchLineEstimateToUploadEstmatePhotographs(
+            @ModelAttribute final EstimatePhotographSearchRequest estimatePhotographSearchRequest,
+            final Model model) throws ApplicationException {
+        setDropDownValues(model);
+        final List<Department> departments = worksUtils.getUserDepartments(securityUtils.getCurrentUser());
+        model.addAttribute("departments", departments);
+        model.addAttribute("estimatePhotographSearchRequest", estimatePhotographSearchRequest);
+        model.addAttribute("lineEstimateRequired", worksApplicationProperties.lineEstimateRequired());
+        return "searchLineEstimateForEstimatePhotograph-form";
+    }
+
+}
